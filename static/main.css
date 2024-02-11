@@ -1,0 +1,328 @@
+/* Typography */
+.name {
+    font-size: 37px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.summary {
+    margin: 1rem;
+    font-family: "Consolas", monospace;
+}
+
+.team {
+    margin-bottom: 1rem;
+    font-size: 18px;
+    font-weight: 100;
+}
+
+/* Containers */
+#profile {
+    border: 2px solid;
+    border-image: linear-gradient(to right, #ff0000, #00147e);
+    border-image-slice: 1;
+    border-radius: 8px;
+    margin-top: 20px;
+
+    background-color: aliceblue;
+}
+
+table {
+    border: 2px solid;
+    border-image: linear-gradient(to right, #ff0000, #00147e);
+    border-image-slice: 1;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-family: "DejaVu Sans Mono", sans-serif;
+    background-color: aliceblue;
+}
+
+#hitStatsTable,
+#pitchStatsTable {
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-family: "DejaVu Sans Mono", sans-serif;
+    background-color: aliceblue;
+}
+
+tbody {
+    background-color: white;
+}
+
+/* General Styles */
+body {
+    font-family: "Arial Rounded MT Bold", sans-serif;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 1);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loading-spinner {
+    border: 8px solid #fff;
+    border-top: 8px solid #d9534f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Profile Column */
+.profile-col {
+    height: 100%;
+    overflow-y: auto;
+}
+
+a {
+    color: #000;
+}
+
+header {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12pt;
+    background-color: #ffffff;
+    color: #333;
+    padding-top: 20px;
+    text-align: center;
+    margin: 10px;
+}
+
+.active {
+    color: white;
+    background-color: #545454;
+}
+
+header h1 {
+    margin: 0;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #fff;
+    margin: 10px auto;
+    width: 80%;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #545454;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+nav a:hover {
+    background-color: #fff;
+    color: #333;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+#pitchStatsTable,
+#hitStatsTable {
+    font-size: 13px;
+    font-family: 'Roboto Mono', monospace;
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#pitchStatsTable th,
+#pitchStatsTable td {
+    padding: 5px;
+    text-align: center;
+}
+
+#hitStatsTable th,
+#hitStatsTable td {
+    padding: 8px;
+    text-align: center;
+}
+
+.chart-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.hr-container {
+    text-align: center;
+    font-family: "DejaVu Sans Mono", monospace;
+    overflow-x: auto;
+}
+
+.hr-container hr {
+    display: inline-block;
+    width: 30%;
+    margin: 0 10px;
+    border: none;
+    border-top: 1px solid black;
+}
+
+.hr-container span {
+    display: inline-block;
+    background-color: white;
+    padding: 0 10px;
+}
+
+.table-container {
+    overflow-x: auto;
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+.Curveball {
+    color: dodgerblue;
+}
+
+.Sinker {
+    color: orange;
+}
+
+.Slider {
+    color: mediumseagreen;
+}
+
+.Changeup {
+    color: violet;
+}
+
+.Fastball {
+    color: tomato;
+}
+
+.Cutter {
+    color: slateblue;
+}
+
+.Splitter {
+    color: blue;
+}
+
+.None {
+    color: gray;
+}
+
+.Other {
+    color: purple;
+}
+
+.Knuckleball {
+    color: brown;
+}
+
+.Fastballs {
+    color: red;
+}
+
+.Breaking {
+    color: blue;
+}
+
+.Offspeed {
+    color: darkorange;
+}
+
+
+@media (max-width: 1200px) {
+    .hr-container hr {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    #profile {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+#framingTable {
+    max-width: 99%;
+}
+
+.dataTables_length {
+    display: none;
+}
+
+.fl-section {
+    height: 100%;
+    overflow-y: auto;
+}
+
+#imageContainer {
+    max-width: 30%;
+}
+
+#slideShowImage {
+    width: 100%;
+}
+
+.social-icons {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: linear-gradient(to right, #ff0000, #00147e);
+}
+
+.social-icons a {
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+.hr-container-adj {
+    text-align: center;
+    font-family: "DejaVu Sans Mono", monospace;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.hr-container-adj hr {
+    display: inline-block;
+    width: 30%;
+    margin: 0 10px;
+    border: none;
+    border-top: 1px solid black;
+}
+
+.hr-container-adj p {
+    display: inline-block;
+    padding: 0 10px;
+}

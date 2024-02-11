@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FL Savant (2.0)</title>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <link rel="stylesheet" href="static/main.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1><a href="/">Frontier League Savant</a></h1>
+            <hr>
+            <nav>
+                <ul>
+                    <li><a href="pitcher">Pitchers</a></li>
+                    <li><a class="active" href="hitter">Hitters</a></li>
+                    <li><a href="umpire">Umpires</a></li>
+                    <li><a href="catcher">Catchers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <hr>
+
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-spinner"></div>
+    </div>
+    <div id="contentContainer" class="container-fluid text-center">
+        <div class="row">
+            <!-- Profile Column -->
+            <div id="profile" class="col-xl-3 col-lg-10 profile-col mx-auto ml-1 mr-1">
+                <form method="post" action="/hit_summary" id="hitForm">
+                    <div class="form-group text-center">
+                        <h1 class="name text-center mt-4" id="hitterName"></h1>
+                        <p class="team text-center" id="hitterTeam"></p>
+                        <select class="form-control select2" id="hitter" name="hitter_id">
+                            {% for hitter in hitters %}
+                            <option value="{{ hitter }}">{{ hitter }}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="summary" id="hitSummaryContainer">
+                        </div>
+                        <table id="hitStatsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>AVG</th>
+                                    <th>HR</th>
+                                    <th>SB</th>
+                                    <th>WAR</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hitStatsBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Charts Column -->
+            <div id="charts" class="col-lg-8  col-md-10 mx-auto">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div id="hitChart"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div id="percentileHitChart" class="text-center"></div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-10 mb-5 ml-1 mr-1 text-center">
+                <div class="hr-container">
+                    <div class="hr-content">
+                        <hr>
+                        <span>Yakkertech Statistics</span>
+                        <hr>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="table" id="yakkerTable">
+                        <thead>
+                            <tr>
+                                <th>Pitches</th>
+                                <th>BBE</th>
+                                <th>Barrels</th>
+                                <th>Barrel%</th>
+                                <th>EV</th>
+                                <th>Max EV</th>
+                                <th>LA</th>
+                                <th>SweetSpot%</th>
+                                <th>xBA</th>
+                                <th>xSLG</th>
+                                <th>xwOBAcon</th>
+                                <th>HardHit%</th>
+                                <th>K%</th>
+                                <th>BB%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="yakkerTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="hr-container">
+            <div class="hr-content">
+                <hr>
+                <span>Batted Ball Profile</span>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-10 mb-5 ml-1 mr-1 text-center">
+                <div class="table-container">
+                    <table class="table" id="battedBallTable">
+                        <thead>
+                            <tr>
+                                <th>Pull%</th>
+                                <th>Oppo%</th>
+                                <th>Straight%</th>
+                                <th>GroundBall%</th>
+                                <th>LineDrive%</th>
+                                <th>PopUp%</th>
+                                <th>FlyBall%</th>
+                                <th>Solid%</th>
+                                <th>Weak%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="battedBallTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="hr-container">
+            <div class="hr-content">
+                <hr>
+                <span>xwOBA by Pitch Type & Velocity</span>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-10 mb-5 ml-1 mr-1 text-center">
+                <div class="table-container">
+                    <table class="table" id="veloTable">
+                        <thead>
+                            <tr>
+                                <th>Pitch Type</th>
+                                <th>Low Velocity</th>
+                                <th>Average Velocity</th>
+                                <th>High Velocity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="veloBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="hr-container">
+            <div class="hr-content">
+                <hr>
+                <span>Run Value by Pitch Type</span>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-10 mb-5 ml-1 mr-1 text-center">
+                <div class="table-container">
+                    <table class="table" id="rvTable">
+                        <thead>
+                            <tr>
+                                <th>Pitch</th>
+                                <th>Pitches</th>
+                                <th>HardHit%</th>
+                                <th>Whiff%</th>
+                                <th>xwOBAcon</th>
+                                <th>RV/100</th>
+                                <th>RV</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rvTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="hr-container">
+            <div class="hr-content">
+                <hr>
+                <span>Plate Discipline</span>
+                <hr>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-10 mb-5 ml-1 mr-1 text-center">
+                <div class="table-container">
+                    <table class="table" id="discTable">
+                        <thead>
+                            <tr>
+                                <th>Pitches</th>
+                                <th>Zone%</th>
+                                <th>Z-Swing%</th>
+                                <th>Z-Contact%</th>
+                                <th>Chase%</th>
+                                <th>O-Swing%</th>
+                                <th>O-Contact%</th>
+                                <th>Edge%</th>
+                                <th>1st Pitch Swing%</th>
+                                <th>Swing%</th>
+                                <th>Whiff%</th>
+                                <th>Heart%</th>
+                                <th>Heart Swing%</th>
+                            </tr>
+                        </thead>
+                        <tbody id="discTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js">
+    </script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3-hexbin@0.2.2/build/d3-hexbin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="../static/hitter.js"></script>
+</body>
+
+</html>
